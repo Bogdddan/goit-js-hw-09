@@ -1,0 +1,2 @@
+var e=(new Date).getTime();flatpickr("#calendar",{dateFormat:"Y-m-d",minDate:"today",onChange:function(t,a){e=t[0].getTime();var n=setInterval((function(){var t=(new Date).getTime(),a=e-t,r=Math.floor(a/864e5),o=Math.floor(a%864e5/36e5),m=Math.floor(a%36e5/6e4),i=Math.floor(a%6e4/1e3);document.getElementById("timer").innerHTML=r+" днів "+o+" годин "+m+" хвилин "+i+" секунд ",a<0&&(clearInterval(n),document.getElementById("timer").innerHTML="Час відліку закінчився!")}),1e3)}});
+//# sourceMappingURL=02-timer.ebdf9c29.js.map
