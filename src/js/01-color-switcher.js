@@ -1,16 +1,29 @@
+const startBtn = document.querySelector('[data-start]');
+const stopBtn = document.querySelector('[data-stop]');
 
-const startBtn = document.querySelector(".js-start");
-const stopBtn = document.querySelector(".js-stop");
 let timerId = null;
 
-startBtn.addEventListener("click", () => {
+startBtn.addEventListener('click' , () => {
+  //коли нажмаєм то виключаєм кнопку 
+  startBtn.disabled = true;
+
   timerId = setInterval(() => {
-    console.log(`I love async JS!  ${Math.random()}`);
+    //достукуємось до body і в інтервалі функцією міняємо йому кольори
+    document.body.style.backgroundColor = getRandomHexColor()
   }, 1000);
 });
 
+stopBtn.addEventListener('click' , () => {
+  //коли нажимаєм то включаєм кнопку назад
+  startBtn.disabled = false;
 
-stopBtn.addEventListener("click", () => {
+  //виключаєм інтервал
   clearInterval(timerId);
-  console.log(`Interval with id ${timerId} has stopped!`);
+
 });
+
+
+//рандом кольори
+function getRandomHexColor() {
+  return `#${Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0')}`;
+}
