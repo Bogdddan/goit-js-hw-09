@@ -1,2 +1,0 @@
-!function(){var e=(new Date).getTime();flatpickr("#calendar",{dateFormat:"Y-m-d",minDate:"today",onChange:function(t,n){e=t[0].getTime();var a=setInterval((function(){var t=(new Date).getTime(),n=e-t,r=Math.floor(n/864e5),o=Math.floor(n%864e5/36e5),i=Math.floor(n%36e5/6e4),m=Math.floor(n%6e4/1e3);document.getElementById("timer").innerHTML=r+" днів "+o+" годин "+i+" хвилин "+m+" секунд ",n<0&&(clearInterval(a),document.getElementById("timer").innerHTML="Час відліку закінчився!")}),1e3)}})}();
-//# sourceMappingURL=02-timer.486a80a1.js.map
