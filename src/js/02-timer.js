@@ -1,39 +1,27 @@
-// встановлюємо дату за замовчуванням
-const countDownDate = new Date().getTime();
+// Описаний в документації
+import flatpickr from 'flatpickr';
+// Додатковий імпорт стилів
+import 'flatpickr/dist/flatpickr.min.css';
 
-// відображаємо календар на сторінці
-flatpickr("#calendar", {
-  dateFormat: "Y-m-d",
-  minDate: "today",
-  onChange: function(selectedDates, dateStr) {
+function convertMs(ms) {
+  // Number of milliseconds per unit of time
+    const second = 1000;
+  const minute = second * 60;
+  const hour = minute * 60;
+  const day = hour * 24;
 
-    // отримуємо дату, яку вибрали на календарі
-    countDownDate = selectedDates[0].getTime();
+  // Remaining days
+    const days = Math.floor(ms / day);
+  // Remaining hours
+    const hours = Math.floor((ms % day) / hour);
+  // Remaining minutes
+    const minutes = Math.floor(((ms % day) % hour) / minute);
+  // Remaining seconds
+    const seconds = Math.floor((((ms % day) % hour) % minute) / second);
 
-    // оновлюємо таймер кожну секунду
-    const x = setInterval(function() {
+return { days, hours, minutes, seconds };
+}
 
-      // отримуємо поточну дату та час
-      const now = new Date().getTime();
-
-      // знаходимо різницю між поточним часом та датою, до якої ми відлікуємо
-      const distance = countDownDate - now;
-
-      // обраховуємо час в днях, годинах, хвилинах та секундах
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-      // виводимо результат в елемент з id="timer"
-      document.getElementById("timer").innerHTML = days + " днів " + hours + " годин " + minutes + " хвилин " + seconds + " секунд ";
-
-      // якщо час відліку закінчився, виводимо повідомлення
-      if (distance < 0) {
-        clearInterval(x);
-        document.getElementById("timer").innerHTML = "Час відліку закінчився!";
-      }
-    }, 1000);
-
-  }
-});
+console.log(convertMs(2000)); // {days: 0, hours: 0, minutes: 0, seconds: 2}
+console.log(convertMs(140000)); // {days: 0, hours: 0, minutes: 2, seconds: 20}
+console.log(convertMs(24140000)); // {days: 0, hours: 6 minutes: 42, seconds: 20}
