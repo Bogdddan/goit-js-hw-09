@@ -30,9 +30,9 @@ form.addEventListener('submit', (event) => {
 
   Promise.all(promises)
     .then((results) => {
-      Notiflix.Notify.info('All promises fulfilled:', results);
+      Notiflix.Notify.success('All promises fulfilled:', results);
     })
     .catch((error) => {
-      Notiflix.Notify.info('At least one promise rejected:', error);
+      Notiflix.Notify.failure('At least one promise rejected:', error);
     });
 });
