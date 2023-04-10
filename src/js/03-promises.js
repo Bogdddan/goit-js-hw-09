@@ -1,9 +1,8 @@
 import Notiflix from 'notiflix';
 
-
 const form = document.querySelector('.form');
 
-function createPromise(position, delay) {
+function createPromise(position, delay, step) {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       const shouldResolve = Math.random() > 0.3;
@@ -24,15 +23,22 @@ form.addEventListener('submit', (event) => {
 
   const promises = Array.from({ length: amount }, (_, i) => {
     const position = i + 1;
-    const promiseDelay = delay + i * step;
-    return createPromise(position, promiseDelay);
+    const promise = createPromise(position, delay + i * step, step);
+    promise
+      .then((result) => {
+        Notiflix.Notify.success(`✅ Fulfilled promise ${result.position} in ${result.delay}ms`);
+      })
+      .catch((error) => {
+        Notiflix.Notify.failure(`❌ Rejected promise ${error.position} in ${error.delay}ms`);
+      });
+    return promise;
   });
 
   Promise.all(promises)
-    .then((results) => {
-      Notiflix.Notify.success('All promises fulfilled:', results);
+    .then(() => {
+      console.log('всі проміси були виконані успішно');
     })
-    .catch((error) => {
-      Notiflix.Notify.failure('At least one promise rejected:', error);
+    .catch(() => {
+      console.log('у якомусь з промісів є невдача');
     });
 });
