@@ -36,9 +36,9 @@ form.addEventListener('submit', (event) => {
 
   Promise.all(promises)
     .then(() => {
-      console.log('всі проміси були виконані успішно');
+      return promises;
     })
     .catch(() => {
-      console.log('у якомусь з промісів є невдача');
+      return promises;
     });
 });
